@@ -13,7 +13,7 @@ import (
 	"net/rpc/jsonrpc"
 	"strconv"
 
-	"github.com/cirocosta/sample-rpc-go/core"
+	"github.com/shdriesner/sample-rpc-go/core"
 )
 
 // Client contains the configuration options for
@@ -91,7 +91,7 @@ func (c *Client) Close() (err error) {
 func (c *Client) Execute(ctx context.Context, name string) (msg string, err error) {
 	var (
 		request  = &core.Request{Name: name}
-		response = new(core.Response)
+		  response = new(core.Response)
 	)
 
 	err = c.client.Call(core.HandlerName, request, response)

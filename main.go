@@ -1,14 +1,15 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
 
-	. "github.com/cirocosta/sample-rpc-go/client"
-	. "github.com/cirocosta/sample-rpc-go/server"
+	. "github.com/shdriesner/sample-rpc-go/client"
+	. "github.com/shdriesner/sample-rpc-go/server"
 )
 
 var (
@@ -72,16 +73,22 @@ func runServer() {
 // flags as they were parsed and then initiates
 // the client execution.
 func runClient() {
+	var (
+		ctx    context.Context
+		cancel context.CancelFunc
+	)
+	ctx, cancel = context.WithCancel(context.Background())
 	client := &Client{
 		UseHttp: *http,
 		UseJson: *json,
 		Port:    *port,
 	}
+	defer cancel()
 	defer client.Close()
 
 	must(client.Init())
 
-	response, err := client.Execute("ciro")
+	response, err := client.Execute(ctx, "World")
 	must(err)
 
 	log.Println(response)

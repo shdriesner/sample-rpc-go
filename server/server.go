@@ -14,7 +14,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/cirocosta/sample-rpc-go/core"
+	"github.com/shdriesner/sample-rpc-go/core"
 )
 
 // Server holds the configuration used to initiate
